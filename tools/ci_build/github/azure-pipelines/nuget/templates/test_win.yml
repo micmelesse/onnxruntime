@@ -36,9 +36,6 @@ jobs:
       modifyEnvironment: true
       workingFolder: '$(Build.BinariesDirectory)'
 
-  - template: set-test-data-variables-step.yml  
-  - template: win-download-test-data.yml
-
   - task: BatchScript@1
     displayName: 'Setup VS2019 env vars'
     inputs:
