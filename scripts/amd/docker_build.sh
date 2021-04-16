@@ -2,7 +2,8 @@
 # set -o xtrace
 
 # set path
-DOCKERFILE_PATH=orttraining/tools/amdgpu/Dockerfile.rocm4.1.pytorch
+cd orttraining/tools/amdgpu
+DOCKERFILE_PATH=Dockerfile.rocm4.1.pytorch
 
 # get tag
 DOCKERFILE_NAME=$(basename $DOCKERFILE_PATH)

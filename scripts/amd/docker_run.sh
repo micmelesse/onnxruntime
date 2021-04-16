@@ -3,13 +3,14 @@ alias drun_nodevice='sudo docker run -it --rm --network=host --ipc=host --shm-si
 
 VOLUMES="-v $HOME/dockerx:/dockerx -v /data:/data"
 
-WORK_DIR='/root/onnxruntime'
+# WORK_DIR='/root/onnxruntime'
+WORK_DIR=/workspace/GPT2/transformers
 
 IMAGE_NAME=rocm4.1.pytorch
 
 CONTAINER_ID=$(drun -d -w $WORK_DIR $VOLUMES $IMAGE_NAME)
 echo "CONTAINER_ID: $CONTAINER_ID"
-docker cp . $CONTAINER_ID:$WORK_DIR
+# docker cp . $CONTAINER_ID:$WORK_DIR
 docker attach $CONTAINER_ID
 docker stop $CONTAINER_ID
 docker rm $CONTAINER_ID
