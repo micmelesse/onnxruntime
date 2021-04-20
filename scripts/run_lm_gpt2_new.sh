@@ -25,23 +25,18 @@ if [ "$use_ort" = true ]; then
     RUN_CMD="mpirun -n ${num_gpus} --allow-run-as-root python $RUN_FILE --ort_trainer --output_dir=$RESULT_DIR/output-ort"
 else
     echo "Launching PyTorch run:"
-    RUN_CMD="mpirun -n ${num_gpus} --allow-run-as-root python $RUN_FILE --output_dir=$RESULT_DIR/output-pytorch"
+    RUN_CMD="python -m torch.distributed.launch --nproc_per_node $num_gpus $RUN_FILE --output_dir=$RESULT_DIR/output-pytorch"
 fi
 
-BATCH_SIZE=1
+BATCH_SIZE=2
 $RUN_CMD \
-    --model_type=gpt2-medium \
-    --model_name_or_path=gpt2-medium \
-    --tokenizer_name=gpt2-medium \
-    --config_name=gpt2-medium \
-    --do_eval \
-    --do_train \
+    --model_name_or_path gpt2-medium \
     --dataset_name wikitext \
     --dataset_config_name wikitext-2-raw-v1 \
+    --do_train \
+    --do_eval \
     --per_device_train_batch_size=$BATCH_SIZE \
     --per_device_eval_batch_size=$BATCH_SIZE \
-    --gradient_accumulation_steps=4 \
-    --block_size=1024 \
     --weight_decay=0.01 \
     --overwrite_output_dir \
     --logging_steps=100 \
