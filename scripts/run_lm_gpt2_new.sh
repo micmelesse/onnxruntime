@@ -28,7 +28,7 @@ else
     RUN_CMD="python -m torch.distributed.launch --nproc_per_node $num_gpus $RUN_FILE --output_dir=$RESULT_DIR/output-pytorch"
 fi
 
-BATCH_SIZE=2
+BATCH_SIZE=3
 $RUN_CMD \
     --model_name_or_path gpt2-medium \
     --dataset_name wikitext \
@@ -37,10 +37,11 @@ $RUN_CMD \
     --do_eval \
     --per_device_train_batch_size=$BATCH_SIZE \
     --per_device_eval_batch_size=$BATCH_SIZE \
+    --gradient_accumulation_steps=8 \
     --block_size=1024  \
     --weight_decay=0.01 \
     --overwrite_output_dir \
-    --logging_steps=100 \
+    --logging_steps=10 \
     --num_train_epochs=5 \
     --fp16 \
     --fp16_opt_level=O2
