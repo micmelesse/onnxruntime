@@ -2,7 +2,7 @@
 set -e
 
 num_gpus=8
-use_ort=true
+use_ort=false
 
 #export TRAIN_FILE=/data/wiki.train.tokens
 #export TEST_FILE=/data/wiki.test.tokens
@@ -35,3 +35,5 @@ $RUN_CMD \
     --overwrite_output_dir \
     --logging_steps=100 \
     --num_train_epochs=5 \
+    --fp16 \
+    --fp16_opt_level=O2
