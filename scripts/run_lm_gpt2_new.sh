@@ -37,6 +37,7 @@ $RUN_CMD \
     --do_eval \
     --per_device_train_batch_size=$BATCH_SIZE \
     --per_device_eval_batch_size=$BATCH_SIZE \
+    --block_size=1024  \
     --weight_decay=0.01 \
     --overwrite_output_dir \
     --logging_steps=100 \
